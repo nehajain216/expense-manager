@@ -1,0 +1,18 @@
+
+CREATE TABLE USERS (
+        ID SERIAL NOT NULL,
+        NAME VARCHAR(255) NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        password VARCHAR(25) NOT NULL,
+        PRIMARY KEY (id)
+    );
+
+CREATE TABLE TRANSACTIONS (
+        ID SERIAL NOT NULL,
+        TXN_TYPE VARCHAR(50),
+        AMOUNT DECIMAL,
+        DESCRIPTION VARCHAR(255),
+        CREATED_ON DATE,
+        CREATED_BY DATE,
+        PRIMARY KEY (id)
+    );
