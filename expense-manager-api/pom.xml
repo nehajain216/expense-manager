@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.sivalabs</groupId>
     <artifactId>expense-manager-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>expense-manager-api</name>
     <description>ExpenseManager API</description>
     <properties>
@@ -98,6 +98,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -106,6 +113,10 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
