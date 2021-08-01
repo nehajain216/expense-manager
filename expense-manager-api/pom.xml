@@ -16,7 +16,11 @@
     <properties>
         <java.version>11</java.version>
         <testcontainers.version>1.15.3</testcontainers.version>
+            <sonar.projectKey>nehajain216_expense-manager</sonar.projectKey>
+            <sonar.organization>nehajain216</sonar.organization>
+            <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
