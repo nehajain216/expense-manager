@@ -1,6 +1,6 @@
 package com.sivalabs.expensemanager.services;
 
-import com.sivalabs.expensemanager.model.User;
+import com.sivalabs.expensemanager.entities.User;
 import com.sivalabs.expensemanager.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

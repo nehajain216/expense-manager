@@ -1,6 +1,6 @@
 package com.sivalabs.expensemanager.controllers;
 
-import com.sivalabs.expensemanager.model.User;
+import com.sivalabs.expensemanager.entities.User;
 import com.sivalabs.expensemanager.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

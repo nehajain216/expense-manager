@@ -1,6 +1,6 @@
 package com.sivalabs.expensemanager.controllers;
 
-import com.sivalabs.expensemanager.model.User;
+import com.sivalabs.expensemanager.entities.User;
 import com.sivalabs.expensemanager.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

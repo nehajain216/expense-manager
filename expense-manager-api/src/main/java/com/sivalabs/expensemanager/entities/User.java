@@ -1,4 +1,4 @@
-package com.sivalabs.expensemanager.model;
+package com.sivalabs.expensemanager.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
