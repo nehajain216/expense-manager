@@ -6,28 +6,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.sivalabs.expensemanager.common.AbstractIntegrationTest;
-import com.sivalabs.expensemanager.entities.Transaction;
+import com.sivalabs.expensemanager.dtos.TransactionDto;
 import com.sivalabs.expensemanager.entities.TransactionType;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-public class TransactionControllerIT extends AbstractIntegrationTest {
+class TransactionControllerIT extends AbstractIntegrationTest {
 
     @Test
-    public void shouldSaveTransactionSuccessfully() throws Exception {
-        Transaction transaction =
-                new Transaction(
+    void shouldSaveTransactionSuccessfully() throws Exception {
+        TransactionDto transactionDto =
+                new TransactionDto(
                         null, TransactionType.INCOME, 250.0, "data for IT", LocalDate.now(), 1);
 
         this.mockMvc
                 .perform(
                         post("/api/transactions")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(transaction)))
+                                .content(objectMapper.writeValueAsString(transactionDto)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.amount", is(transaction.getAmount())))
+                .andExpect(jsonPath("$.amount", is(transactionDto.getAmount())))
                 .andExpect(jsonPath("$.txnType", is(TransactionType.INCOME.name())))
-                .andExpect(jsonPath("$.description", is(transaction.getDescription())));
+                .andExpect(jsonPath("$.description", is(transactionDto.getDescription())));
     }
 }

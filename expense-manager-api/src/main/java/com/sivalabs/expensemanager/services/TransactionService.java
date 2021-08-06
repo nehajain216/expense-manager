@@ -1,5 +1,6 @@
 package com.sivalabs.expensemanager.services;
 
+import com.sivalabs.expensemanager.dtos.TransactionDto;
 import com.sivalabs.expensemanager.entities.Transaction;
 import com.sivalabs.expensemanager.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
 
-    public Transaction saveTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
+    public TransactionDto saveTransaction(TransactionDto transactionDto) {
+        Transaction transaction = transactionRepository.save(transactionDto.toEntity());
+        return transactionDto.fromEntity(transaction);
     }
 }

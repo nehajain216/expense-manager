@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.sivalabs.expensemanager.entities.Transaction;
+import com.sivalabs.expensemanager.dtos.TransactionDto;
 import com.sivalabs.expensemanager.entities.TransactionType;
 import com.sivalabs.expensemanager.services.TransactionService;
 import java.time.LocalDate;
@@ -18,17 +18,18 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @WebMvcTest(controllers = TransactionController.class)
-public class TransactionControllerTest {
+class TransactionControllerTest {
 
     @MockBean TransactionService transactionService;
 
     @Autowired MockMvc mockMvc;
 
     @Test
-    public void SuccessfullySaveTransactionOnValidData() throws Exception {
-        Transaction transaction =
-                new Transaction(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
-        when(transactionService.saveTransaction(any(Transaction.class))).thenReturn(transaction);
+    void SuccessfullySaveTransactionOnValidData() throws Exception {
+        TransactionDto transactionDto =
+                new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+        when(transactionService.saveTransaction(any(TransactionDto.class)))
+                .thenReturn(transactionDto);
         mockMvc.perform(
                         MockMvcRequestBuilders.post("/api/transactions")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -43,7 +44,7 @@ public class TransactionControllerTest {
     }
 
     @Test
-    public void FailToSaveTransactionOnInvalidData() throws Exception {
+    void FailToSaveTransactionOnInvalidData() throws Exception {
         mockMvc.perform(
                         MockMvcRequestBuilders.post("/api/transactions")
                                 .contentType(MediaType.APPLICATION_JSON)

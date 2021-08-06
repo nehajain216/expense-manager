@@ -1,6 +1,6 @@
 package com.sivalabs.expensemanager.web.controllers;
 
-import com.sivalabs.expensemanager.entities.Transaction;
+import com.sivalabs.expensemanager.dtos.TransactionDto;
 import com.sivalabs.expensemanager.services.TransactionService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class TransactionController {
 
     @PostMapping("/api/transactions")
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction saveTransaction(@Valid @RequestBody Transaction transaction) {
-        return transactionService.saveTransaction(transaction);
+    public TransactionDto saveTransaction(@Valid @RequestBody TransactionDto transactionDto) {
+        return transactionService.saveTransaction(transactionDto);
     }
 }
