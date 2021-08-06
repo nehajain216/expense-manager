@@ -1,9 +1,4 @@
-package com.sivalabs.expensemanager.model;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+package com.sivalabs.expensemanager.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "USERS")
@@ -21,11 +20,9 @@ import javax.validation.constraints.NotEmpty;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @NotEmpty
-    private String name;
-    @NotEmpty
-    private String email;
-    @NotEmpty
-    private String password;
+    private Long id;
+
+    @NotEmpty private String name;
+    @NotEmpty private String email;
+    @NotEmpty private String password;
 }
