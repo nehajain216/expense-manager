@@ -1,10 +1,6 @@
 package com.sivalabs.expensemanager.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TRANSACTIONS")
@@ -24,16 +23,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Transaction {
     @Id
-    @SequenceGenerator(name = "transaction_id_seq",
-        sequenceName = "transaction_id_seq",
-        allocationSize = 1)
+    @SequenceGenerator(
+            name = "transaction_id_seq",
+            sequenceName = "transaction_id_seq",
+            allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_id_seq")
-    private Integer id;
+    private Long id;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private TransactionType txnType;
-    @NotNull
-    private Double amount;
+
+    @NotNull private Double amount;
     private String description;
     private LocalDate createdOn = LocalDate.now();
     private Integer createdBy;

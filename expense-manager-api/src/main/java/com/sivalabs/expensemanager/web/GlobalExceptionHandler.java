@@ -1,9 +1,7 @@
-package com.sivalabs.expensemanager.controllers.web;
+package com.sivalabs.expensemanager.web;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-
-}
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {}
