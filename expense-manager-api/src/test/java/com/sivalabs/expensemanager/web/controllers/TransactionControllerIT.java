@@ -25,7 +25,7 @@ class TransactionControllerIT extends AbstractIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        transactionRepository.findAll();
+        transactionRepository.deleteAll();
         transaction =
                 new Transaction(
                         null, TransactionType.INCOME, 2500.0, "data for IT", LocalDate.now(), 1);
@@ -56,6 +56,13 @@ class TransactionControllerIT extends AbstractIntegrationTest {
                 .perform(
                         delete("/api/transactions/{id}", transaction.getId())
                                 .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldReturnListOfTransactions() throws Exception {
+        this.mockMvc
+                .perform(get("/api/transactions").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }

@@ -10,6 +10,8 @@ import com.sivalabs.expensemanager.entities.TransactionType;
 import com.sivalabs.expensemanager.exceptions.TransactionNotFoundException;
 import com.sivalabs.expensemanager.services.TransactionService;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -73,5 +75,21 @@ class TransactionControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnListOfTransactions() throws Exception {
+        TransactionDto transactionDto1 =
+                new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+        TransactionDto transactionDto2 =
+                new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+        List<TransactionDto> transactionDtoList = Arrays.asList(transactionDto1, transactionDto2);
+        when(transactionService.viewAllTransaction()).thenReturn(transactionDtoList);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/transactions")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.size()", is(transactionDtoList.size())));
     }
 }
