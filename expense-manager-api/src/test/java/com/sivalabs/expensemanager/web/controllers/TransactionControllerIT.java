@@ -12,9 +12,6 @@ import com.sivalabs.expensemanager.entities.TransactionType;
 import com.sivalabs.expensemanager.repositories.TransactionRepository;
 import com.sivalabs.expensemanager.services.TransactionService;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +61,8 @@ class TransactionControllerIT extends AbstractIntegrationTest {
 
     @Test
     void shouldReturnListOfTransactions() throws Exception {
-        this.mockMvc.perform(get("/api/transactions")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+        this.mockMvc
+                .perform(get("/api/transactions").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

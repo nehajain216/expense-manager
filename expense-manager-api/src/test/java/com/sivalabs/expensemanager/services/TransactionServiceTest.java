@@ -58,16 +58,16 @@ class TransactionServiceTest {
     }
 
     @Test
-    void shouldReturnListOfAllTransactions(){
+    void shouldReturnListOfAllTransactions() {
         when(transactionRepository.findAll()).thenReturn(Arrays.asList(transaction));
         List<TransactionDto> transactionDtos = transactionService.viewAllTransaction();
-        assertEquals(1,transactionDtos.size());
+        assertEquals(1, transactionDtos.size());
     }
 
     @Test
-    void shouldReturnEmptyListIfNoTransactionsAreAvailable(){
+    void shouldReturnEmptyListIfNoTransactionsAreAvailable() {
         when(transactionRepository.findAll()).thenReturn(Arrays.asList());
         List<TransactionDto> transactionDtos = transactionService.viewAllTransaction();
-        assertEquals(0,transactionDtos.size());
+        assertEquals(0, transactionDtos.size());
     }
 }
