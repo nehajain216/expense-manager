@@ -2,6 +2,8 @@ package com.sivalabs.expensemanager.dtos;
 
 import com.sivalabs.expensemanager.entities.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
@@ -26,7 +28,7 @@ public class TransactionDto {
     private LocalDate createdOn;
     private Integer createdBy;
 
-    public TransactionDto fromEntity(Transaction transaction) {
+    public static TransactionDto fromEntity(Transaction transaction) {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setId(transaction.getId());
         transactionDto.setTxnType(transaction.getTxnType());
@@ -35,6 +37,14 @@ public class TransactionDto {
         transactionDto.setCreatedOn(transaction.getCreatedOn());
         transactionDto.setCreatedBy(transaction.getCreatedBy());
         return transactionDto;
+    }
+
+    public static List<TransactionDto> fromEntity(List<Transaction> transactionList) {
+        List<TransactionDto> transactionDtoList = new ArrayList<>();
+        for (Transaction transaction : transactionList) {
+            transactionDtoList.add(TransactionDto.fromEntity(transaction));
+        }
+        return transactionDtoList;
     }
 
     public Transaction toEntity() {
