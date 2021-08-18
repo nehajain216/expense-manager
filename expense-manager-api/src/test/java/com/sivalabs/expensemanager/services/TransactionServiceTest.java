@@ -10,6 +10,8 @@ import com.sivalabs.expensemanager.entities.TransactionType;
 import com.sivalabs.expensemanager.exceptions.TransactionNotFoundException;
 import com.sivalabs.expensemanager.repositories.TransactionRepository;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,5 +55,19 @@ class TransactionServiceTest {
                         TransactionNotFoundException.class,
                         () -> transactionService.deleteTransaction(1L));
         assertTrue(myException.getMessage().contains("No transaction is found with id 1"));
+    }
+
+    @Test
+    void shouldReturnListOfAllTransactions(){
+        when(transactionRepository.findAll()).thenReturn(Arrays.asList(transaction));
+        List<TransactionDto> transactionDtos = transactionService.viewAllTransaction();
+        assertEquals(1,transactionDtos.size());
+    }
+
+    @Test
+    void shouldReturnEmptyListIfNoTransactionsAreAvailable(){
+        when(transactionRepository.findAll()).thenReturn(Arrays.asList());
+        List<TransactionDto> transactionDtos = transactionService.viewAllTransaction();
+        assertEquals(0,transactionDtos.size());
     }
 }
