@@ -1,6 +1,11 @@
 package com.sivalabs.expensemanager.repositories;
 
 import com.sivalabs.expensemanager.entities.Transaction;
+import com.sivalabs.expensemanager.entities.TransactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TransactionRepository extends JpaRepository<Transaction, Long> {}
+import java.util.List;
+
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    List<Transaction> findBytxnType(TransactionType transactionType);
+}
