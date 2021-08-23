@@ -1,10 +1,13 @@
 package com.sivalabs.expensemanager.web.controllers;
 
 import com.sivalabs.expensemanager.dtos.TransactionDto;
+import com.sivalabs.expensemanager.entities.TransactionType;
 import com.sivalabs.expensemanager.services.TransactionService;
+import java.time.LocalDate;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +39,18 @@ public class TransactionController {
         transactionService.deleteTransaction(id);
     }
 
-    @GetMapping("/api/transactions/search/{txnType}")
-    public List<TransactionDto> searchTransaction(@PathVariable String txnType)
-    {
-        return transactionService.searchTransaction(txnType);
+    @GetMapping("/api/transactions/search")
+    public List<TransactionDto> searchTransactionByTxnType(
+            @RequestParam(value = "txnType") TransactionType txnType) {
+        return transactionService.searchTransactionByTxnType(txnType);
+    }
+
+    @GetMapping("/api/transactions/search/date-range")
+    public List<TransactionDto> searchTransactionByDates(
+            @RequestParam(value = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate startDate,
+            @RequestParam(value = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                    LocalDate endDate) {
+        return transactionService.searchTransactionByDates(startDate, endDate);
     }
 }

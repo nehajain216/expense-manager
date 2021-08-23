@@ -70,4 +70,44 @@ class TransactionServiceTest {
         List<TransactionDto> transactionDtos = transactionService.viewAllTransaction();
         assertEquals(0, transactionDtos.size());
     }
+
+    @Test
+    void shouldReturnListOfAllTransactionsIfTransactionTypeMatches() {
+        when(transactionRepository.findByTxnType(TransactionType.INCOME))
+                .thenReturn(Arrays.asList(transaction));
+        List<TransactionDto> transactionDtos =
+                transactionService.searchTransactionByTxnType(TransactionType.INCOME);
+        assertEquals(1, transactionDtos.size());
+    }
+
+    @Test
+    void shouldReturnEmptyListIfNoTransactionsTypeMatches() {
+        when(transactionRepository.findByTxnType(TransactionType.INCOME))
+                .thenReturn(Arrays.asList());
+        List<TransactionDto> transactionDtos =
+                transactionService.searchTransactionByTxnType(TransactionType.INCOME);
+        assertEquals(0, transactionDtos.size());
+    }
+
+    @Test
+    void shouldReturnListOfAllTransactionsIfTransactionIsAvailableBetweenGivenDate() {
+        when(transactionRepository.findByCreatedOnBetween(
+                        LocalDate.now(), LocalDate.now().plusDays(1)))
+                .thenReturn(Arrays.asList(transaction));
+        List<TransactionDto> transactionDtos =
+                transactionService.searchTransactionByDates(
+                        LocalDate.now(), LocalDate.now().plusDays(1));
+        assertEquals(1, transactionDtos.size());
+    }
+
+    @Test
+    void shouldReturnEmptyListIfTransactionIsNotAvailableBetweenGivenDate() {
+        when(transactionRepository.findByCreatedOnBetween(
+                        LocalDate.now().plusDays(1), LocalDate.now().plusDays(2)))
+                .thenReturn(Arrays.asList(transaction));
+        List<TransactionDto> transactionDtos =
+                transactionService.searchTransactionByDates(
+                        LocalDate.now().plusDays(1), LocalDate.now().plusDays(2));
+        assertEquals(1, transactionDtos.size());
+    }
 }
