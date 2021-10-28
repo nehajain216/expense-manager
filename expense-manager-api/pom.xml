@@ -20,6 +20,7 @@
             <sonar.organization>nehajain216</sonar.organization>
             <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <spotless-maven-plugin.version>2.5.0</spotless-maven-plugin.version>
+        <problem-spring-web.version>0.26.2</problem-spring-web.version>
     </properties>
 
     <dependencies>
@@ -84,6 +85,11 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.zalando</groupId>
+            <artifactId>problem-spring-web-starter</artifactId>
+            <version>${problem-spring-web.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
