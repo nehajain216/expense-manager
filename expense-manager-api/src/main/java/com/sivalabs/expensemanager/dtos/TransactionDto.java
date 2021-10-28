@@ -39,7 +39,7 @@ public class TransactionDto {
         return transactionDto;
     }
 
-    public static List<TransactionDto> fromEntity(List<Transaction> transactionList) {
+    public static List<TransactionDto> fromEntities(List<Transaction> transactionList) {
         List<TransactionDto> transactionDtoList = new ArrayList<>();
         for (Transaction transaction : transactionList) {
             transactionDtoList.add(TransactionDto.fromEntity(transaction));

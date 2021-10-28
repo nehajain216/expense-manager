@@ -82,11 +82,52 @@ class TransactionControllerTest {
         TransactionDto transactionDto1 =
                 new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
         TransactionDto transactionDto2 =
-                new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+                new TransactionDto(2L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
         List<TransactionDto> transactionDtoList = Arrays.asList(transactionDto1, transactionDto2);
         when(transactionService.viewAllTransaction()).thenReturn(transactionDtoList);
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/transactions")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.size()", is(transactionDtoList.size())));
+    }
+
+    @Test
+    void shouldReturnListOfTransactionsIfTransactionTypeMatches() throws Exception {
+        TransactionDto transactionDto1 =
+                new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+        TransactionDto transactionDto2 =
+                new TransactionDto(2L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+        List<TransactionDto> transactionDtoList = Arrays.asList(transactionDto1, transactionDto2);
+        when(transactionService.searchTransactionByTxnType(TransactionType.INCOME))
+                .thenReturn(transactionDtoList);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/transactions/search?txnType=INCOME")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.size()", is(transactionDtoList.size())));
+    }
+
+    @Test
+    void shouldReturnListOfAllTransactionsIfTransactionIsAvailableBetweenGivenDate()
+            throws Exception {
+        TransactionDto transactionDto1 =
+                new TransactionDto(1L, TransactionType.INCOME, 50.0, "", LocalDate.now(), 1);
+        TransactionDto transactionDto2 =
+                new TransactionDto(
+                        2L, TransactionType.INCOME, 50.0, "", LocalDate.now().plusDays(1), 1);
+
+        List<TransactionDto> transactionDtoList = Arrays.asList(transactionDto1, transactionDto2);
+        when(transactionService.searchTransactionByDates(
+                        LocalDate.now(), LocalDate.now().plusDays(1)))
+                .thenReturn(transactionDtoList);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get(
+                                        "/api/transactions/search/date-range?startDate={startDate}&endDate={endDate}",
+                                        LocalDate.now(),
+                                        LocalDate.now().plusDays(1))
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(
